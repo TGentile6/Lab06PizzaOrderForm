@@ -125,6 +125,15 @@ public class PizzaOrderFrame extends JFrame {
         RecPanel = new JPanel();
         RecDisplay = new JTextArea("",30,30);
         RecDisplay.setEditable(false);
+        RecDisplay.append("=========================================\n" +
+                    "Type of Crust & Size\t\tPrice\n" +
+                    "Ingredient \t\t\tPrice\n" +
+                    "\n" +
+                    "Sub-total: \t\t\tAmount\n" +
+                    "Tax:\t\t\tAmount\n" +
+                    "---------------------------------------------------------------------\n" +
+                    "Total: \t\t\tTotal\n" +
+                    "=========================================\n");
         RecPanel.add(RecDisplay);
     }
 
@@ -145,6 +154,7 @@ public class PizzaOrderFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
             //Check for Size
             Object Size;
+            String Crust = "";
             Size = SizeBox.getSelectedItem();
             if (Size == "Small"){
                 BaseCost = 8.00;
@@ -158,8 +168,24 @@ public class PizzaOrderFrame extends JFrame {
             else if (Size == "Super"){
                 BaseCost = 20.00;
             }
-            else{ BaseCost = 99999.00; }
+            else{
+                BaseCost = 99999.00;
+            }
 
+            //Check crust choice
+            if (Thin.isSelected()){
+                Crust = "Thin";
+            }
+            else if (Regular.isSelected()){
+                Crust = "Regular";
+            }
+            else if (DeepDish.isSelected()){
+                Crust = "Deep-dish";
+            }
+            else {
+                Crust = "Error";
+
+            }
 
             //Reset Toppings Array
             Toppings.clear();
@@ -196,8 +222,11 @@ public class PizzaOrderFrame extends JFrame {
 //                    "---------------------------------------------------------------------\n" +
 //                    "Total: \t\t\tTotal\n" +
 //                    "=========================================\n");
+            RecDisplay.removeAll();
+            RecDisplay.append("=========================================\n");
+            RecDisplay.append(String.format("%-50s",(Size.toString() + " " + Crust + " crust " + "Pizza")) + BaseCost);
 
-            RecDisplay.append("");
+
         }
     }
 }
